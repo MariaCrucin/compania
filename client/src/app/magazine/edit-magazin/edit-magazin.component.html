@@ -1,0 +1,5 @@
+<div class="backgroundGri">
+    <h2 class="mb-4">Modifica magazin</h2>
+
+    <app-form-magazin *ngIf="magazin" [magazin]="magazin" [errors]="errors" (onSaveChanges)="saveChanges($event)"></app-form-magazin>
+</div>

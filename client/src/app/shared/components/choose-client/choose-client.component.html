@@ -1,0 +1,18 @@
+<div class="input-group">
+    <span class="input-group-text w-25">Client</span>
+    <input 
+        type="text" 
+        class="form-control" 
+        name="search"
+        [(ngModel)]="search"
+        (keyup)="onKeyup()"
+        typeaheadOptionField="den"
+        [typeahead]="clienti$"
+        [typeaheadAsync]="true"
+        (typeaheadOnSelect)="onSelect($event)"
+        placeholder="Introduceti inceputul denumirii"
+    >
+    <div class="alert alert-danger" *ngIf="errorMessage">
+        {{ errorMessage }}
+    </div>
+</div>

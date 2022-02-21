@@ -1,0 +1,20 @@
+<div class="form-floating mb-3">
+    <input  
+        [class.is-invalid]="ngControl.dirty && ngControl.invalid"
+        type={{type}}
+        maxlength={{maxLength}}
+        class="form-control"
+        [formControl]="ngControl.control"
+        id={{label}}
+        oninput="this.value = this.value ? this.value[0].toUpperCase() + this.value.substr(1) : this.value"
+        style="--width: {{width}}"
+    >
+    <label for={{label}}>
+        {{label}}
+    </label>
+    <div *ngIf="ngControl.control.errors?.required" class="invalid-feedback">Introduceti {{label}}</div>
+    <div *ngIf="ngControl.control.errors?.minlength" class="invalid-feedback">{{label}} are minim {{ngControl.control.errors.minlength['requiredLength']}} caractere</div>
+    <div *ngIf="ngControl.control.errors?.maxlength" class="invalid-feedback">{{label}} are maxim {{ngControl.control.errors.maxlength['requiredLength']}} caractere</div>
+</div>
+
+<!--[class.is-invalid]="ngControl.touched && ngControl.invalid"-->

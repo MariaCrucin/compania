@@ -1,0 +1,28 @@
+<div *ngIf="!hasChildrens; else elseBlock">
+  <a class="list-group-item list-group-item-action" onclick="return false;" [ngStyle]="styleLink" routerLink={{menuItem.action}} routerLinkActive="active">
+    <i [class]="menuItem.icon" style="margin-right: 10px;"></i>
+    {{ menuItem.text }}
+  </a>
+</div>
+
+<ng-template #elseBlock>
+  <a href="#" class="list-group-item list-group-item-action"
+    (click)="menuItem.isCollapsed = !menuItem.isCollapsed" onclick="return false;" [ngStyle]="style">
+    <i class="menuItem.icon" style="width: 30px;"></i>
+    {{ menuItem.text }}
+    <ng-container *ngIf="!menuItem.isCollapsed">
+      <i class="fas fa-caret-down ms-1"></i>
+    </ng-container>
+    <ng-container *ngIf="menuItem.isCollapsed">
+      <i class="fas fa-caret-up ms-1"></i>
+    </ng-container>
+  </a>
+
+  <!-- colapse -->
+  <div id="collapseBasic" *ngIf="hasChildrens" [collapse]="!menuItem.isCollapsed" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header bg-light" style="padding: 0; border: 0;">
+      <app-sidebar-navbar-item *ngFor="let children of menuItem.children" [menuItem]="children">
+      </app-sidebar-navbar-item>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,13 @@
+
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-hover caption-top">
+            <caption>Alegeti firma:</caption>
+            <tbody>
+                <tr *ngFor="let firma of firme" (click)="selecteaza(firma)">
+                    <th>{{firma.den}}</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

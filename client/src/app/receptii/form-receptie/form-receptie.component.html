@@ -1,0 +1,202 @@
+<form [formGroup]="nirForm" (ngSubmit)="saveReceptie()" class='mb-5'>
+
+    <div class="row">  
+        <div class="col-7">
+            
+            <div class="row mb-3">
+                <div class="col-8">
+                    <div class="input-group">
+                        <span class="input-group-text w-25">Furnizor</span>
+                        <!--(focusout)="onLostFocus()"-->
+                        <input
+                            class="form-control" 
+                            formControlName="search"
+                            (keyup)="onLostFocus()"
+                            typeaheadOptionField="den"
+                            [typeahead]="suggestions$"
+                            [typeaheadAsync]="true"
+                            (typeaheadOnSelect)="onSelect($event)"
+                            placeholder="Introduceti inceputul denumirii">
+                        <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+                            {{ errorMessage }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-outline-primary" routerLink="/receptii/new/furnizor">Adauga Furnizor</button>
+                </div>  
+            </div>
+
+             <div class="row mb-3 d-flex align-items-center">
+               <div class="col-8">
+                 <div class="input-group">
+                   <span class="input-group-text w-25">Tip Document</span>
+                   <select class="form-select" formControlName="tipDocumentId">
+                     <option *ngFor="let item of tipuriDoc" [value]="item.id" [selected]="item.id==nirForm.controls.tipDocumentId.value">{{item.den}}</option>
+                   </select>
+                 </div>
+               </div>
+             </div>
+
+             <div class="row">
+              <div class="col-2">
+                <app-text-input [formControl]='nirForm.controls["nrDoc"]' [label]='"Nr Document"' [maxLength]='15'></app-text-input>
+              </div>
+              <div class="col-2">
+                <app-date-input [formControl]='nirForm.controls["dataDoc"]' [label]='"Data DOC"'></app-date-input>
+              </div>
+               <div class="col-2">
+                 <app-text-input-flu [formControl]='nirForm.controls["obs"]' [label]='"Achizitie din"' [maxLength]='10'></app-text-input-flu>
+               </div>
+               <div class="col-2">
+                <app-number-input [formControl]='nirForm.controls["adaosProc"]' [label]='"Adaos %"'></app-number-input>
+               </div>
+               <div class="col-2">
+                 <app-number-input [formControl]='nirForm.controls["nrNir"]' [label]='"Nr NIR"'></app-number-input>
+               </div>
+               <div class="col-2">
+                 <app-date-input [formControl]='nirForm.controls["dataNir"]' [label]='"Data NIR"'></app-date-input>
+               </div>
+             </div>
+
+             <div class="row">
+               <div class="col-6">
+                <div class="table-responsive mb-3">
+                  <table class="table table-bordered">
+                    <thead class="table-light">
+                      <tr>
+                        <th class="col-3"></th>
+                        <th class="text-end col-3">Baza</th> 
+                        <th class="text-end col-3">TVA</th>
+                        <th class="text-end col-3">Valoarea</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">La Achizitie</th>
+                        <td class="text-end"><strong>{{nirForm.controls.bazaAch.value}}</strong></td>
+                        <td class="text-end"><strong>{{nirForm.controls.tvaAch.value}}</strong></td>
+                        <td class="text-end"><strong>{{nirForm.controls.valAch.value}}</strong></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">La Vanzare</th>
+                        <td class="text-end">{{nirForm.controls.baza.value}}</td>
+                        <td class="text-end">{{nirForm.controls.tva.value}}</td>
+                        <td class="text-end">{{nirForm.controls.val.value}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+               </div>
+             </div>
+        </div>
+        <div class="col-5">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-2">
+        <h4>Materiale</h4>
+      </div>
+      <div class="col-2">
+        <button type="button" class="btn btn-outline-success" (click)="addMaterial()">Adauga</button>
+      </div>
+    </div>
+     
+    <hr>
+    <div class="table-responsive">
+      <table class="table table-bordered" formArrayName="materiale">
+        <thead class="table-light">
+          <tr>
+            <th rowspan="2" class="text-end align-middle" style="width: 4%">Poz Doc</th>
+            <th rowspan="2" class="align-middle" style="width: 26%">Denumirea</th>
+            <th rowspan="2" class="text-end align-middle" style="width: 7%">Cant</th>
+            <th rowspan="2" class="align-middle" style="width: 6%">UM</th>
+            <th colspan="5" class="text-center">La ACHIZITIE</th>
+            <th colspan="4" class="text-center">La VANZARE</th>
+            <th rowspan="2" class="text-end align-middle" style="width: 3%"></th>
+          </tr>
+          <tr>
+            <th class="text-end" style="width: 7%">Pret</th>
+            <th class="text-end" style="width: 4%">Cota TVA</th>
+            <th class="text-end" style="width: 7%">Baza</th> 
+            <th class="text-end" style="width: 7%">TVA</th>
+            <th class="text-end" style="width: 7%">Val</th>
+            <th class="text-end" style="width: 4%">+ %</th>
+            <th class="text-end" style="width: 4%">Cota TVA</th>
+            <th class="text-end" style="width: 7%">Pret</th>
+            <th class="text-end" style="width: 7%">Baza</th> 
+          </tr>
+        </thead>
+        <tbody> 
+          <tr *ngFor="let material of materiale().controls; let i=index" [formGroupName]="i">
+            <td><input type="number" formControlName="nrPozDoc" class="form-control text-end" (keyup)="onChangeNrPozDoc(material.controls.nrPozDoc.value, i)"></td>
+            <td><input type="text" maxLenghth="50" formControlName="den" class="form-control" oninput="this.value = this.value.toUpperCase()"></td>
+            <td><input type="number" formControlName="cant" class="form-control text-end"  (keyup)="onChangeCant(i)"></td>
+            <td>
+              <select class="form-select" formControlName="um">
+                <option *ngFor="let item of unitati" [value]="item.um">{{item.um}}</option>
+              </select>
+            </td>
+            <td><input type="number" formControlName="pretAch" class="form-control text-end"></td> 
+            <td><input type="number" formControlName="cotaTvaAch" class="form-control text-end"></td>
+            <td><input type="number" formControlName="bazaAch" class="form-control text-end" (keyup)="onChangeBazaAch(i)"></td>
+            <td><input type="number" formControlName="tvaAch" class="form-control text-end"></td>
+            <td><input type="number" formControlName="valAch" class="form-control text-end" (keyup)="onChangeValAch(i)"></td>
+            <td><input type="number" formControlName="adaosProc" class="form-control text-end" (keyup)="onChangeAdaosProc(i)"></td>
+            <td><input type="number" formControlName="cotaTva" class="form-control text-end"></td>
+            <td><input type="number" formControlName="pret" class="form-control text-end"></td>
+            <td><input type="number" formControlName="baza" class="form-control text-end"></td>
+            <td>
+              <button 
+                class="btn btn-outline-danger" 
+                [swal]="{
+                  title: 'Confirmare',
+                  text: 'Sunteti sigur ca doriti sa stergeti inregistrarea?',
+                  showCancelButton: true,
+                  confirmButtonText: 'Sterge',
+                  cancelButtonText: 'Renunta'
+                }"
+                (confirm)="removeMaterial(i)"
+              ><i class="fas fa-trash-alt"></i></button></td>
+            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr>
+    <ul class="text-danger list-unstyled" *ngIf="errors">
+      <li>Erori rezultate in urma validarilor din back-end:</li>
+      <li *ngFor="let error of errors">
+          {{error}}
+      </li>
+  </ul>
+
+    <div class="d-flex justify-content-center mt-5">
+      <button type="submit" [disabled]="nirForm.invalid" class="btn btn-outline-success me-3">Salveaza</button>
+      <button type="button" routerLink="/receptii" class="btn btn-outline-danger"> Renunta </button>
+  </div>  
+   
+</form>
+
+<!--
+  <p class="mt-3">Form value: {{nirForm.value | json }}</p>
+  <p>Form status: {{nirForm.status | json}}</p>
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

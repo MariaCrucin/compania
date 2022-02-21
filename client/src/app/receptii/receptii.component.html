@@ -1,0 +1,130 @@
+<div class="container-fluid">
+
+    <router-outlet></router-outlet>
+
+    <div class="row">
+        <div class="col-2">
+            <h2>Receptii</h2>
+        </div>
+        <div class="col-2">
+          <button routerLink="/receptii/new" class="btn btn-outline-primary">Adauga</button>
+        </div>
+    </div>
+
+    <section *ngIf="receptii">
+        <div class="mt-3">
+            <table class="table table-hover caption-top">
+                <caption>   
+                    <div class="row d-flex align-items-center">
+
+                        <div class="col-2">
+                            <strong>Receptii ({{totalCount}})</strong>
+                        </div>
+                        
+                        <div class="col-8">
+                            <form (keydown.enter)="$event.preventDefault()">
+                                <div class="row"> 
+                                        <div class="col-4">
+                                            <div class="input-group">
+                                                <span class="input-group-text">Furnizor</span>
+                                                <!--(focusout)="onLostFocus()"-->
+                                                <input
+                                                    class="form-control" 
+                                                    name="searchFurnizor"
+                                                    [(ngModel)]="search"
+                                                    (keyup)="onLostFocus()"
+                                                    (focus)="onClear()"
+                                                    typeaheadOptionField="den"
+                                                    [typeahead]="suggestions$"
+                                                    [typeaheadAsync]="true"
+                                                    (typeaheadOnSelect)="onSelect($event)"
+                                                    placeholder="Introduceti inceputul denumirii">
+                                                <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+                                                    {{ errorMessage }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <input (keyup.enter)="onSearch()" type="text" id="searchNrDoc" class="form-control" name="searchNrDoc" [(ngModel)]="receptieParams.nrDoc" placeholder="Numar Document">
+                                        </div>
+                                       <div class="col-1">
+                                        <button (click)="onReset()" class="btn btn-outline-primary">Reseteaza</button>
+                                       </div>
+                                </div>    
+                            </form>
+                        </div>
+
+                        <div class="col-2 text-end">
+                          <app-paging-header 
+                            [totalCount]="totalCount" 
+                            [pageSize]="receptieParams.pageSize"
+                            [pageNumber]="receptieParams.pageIndex">
+                          </app-paging-header>
+                        </div>
+                    </div>
+                </caption>
+                <thead>
+                    <tr>
+                        <th rowspan="2" class="text-end align-middle" scope="col">#</th>
+                        <th colspan="2" class="text-center" scope="col">NIR</th>
+                        <th rowspan="2" class="align-middle" scope="col">Furnizor</th>
+                        <th colspan="6" class="text-center" scope="col">DOCUMENT</th>
+                        <th rowspan="2" class="text-end align-middle" scope="col"></th>
+                    </tr>
+    
+                    <tr>
+                        <th class="text-end" scope="col">Nr</th>
+                        <th class="text-center" scope="col">Data</th>
+                        <th scope="col">Tip</th>
+                        <th class="text-end" scope="col">Nr</th>
+                        <th class="text-center" scope="col">Data</th>
+                        <th rowspan="2" class="text-end" scope="col">Baza</th>
+                        <th rowspan="2" class="text-end" scope="col">TVA</th>
+                        <th rowspan="2" class="text-end" scope="col">Val</th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                    <tr *ngFor="let rece of receptii; let i = index">
+                        <td class="text-end" scope="row">{{(receptieParams.pageIndex-1)*receptieParams.pageSize+i+1}}</td>
+                        <td class="text-end">{{rece.nrNir}}</td>
+                        <td class="text-center">{{rece.dataNir | date:'dd.MM.yyyy'}}</td>
+                        <td>{{rece.furnizor}}</td>
+                        <td>{{rece.tipDocument}}</td>
+                        <td class="text-end">{{rece.nrDoc}}</td>
+                        <td class="text-center">{{rece.dataDoc | date:'dd.MM.yyyy'}}</td>
+                        <td class="text-end">{{rece.bazaAch}}</td>
+                        <td class="text-end">{{rece.tvaAch}}</td>
+                        <td class="text-end">{{rece.valAch}}</td>
+                        <td class="text-center">
+                            <button routerLink="/receptii/{{rece.id}}" class="btn btn-sm btn-outline-primary me-3">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button 
+                                class="btn btn-sm btn-outline-danger" 
+                                [swal]="{
+                                    title: 'Confirmare',
+                                    text: 'Sunteti sigur ca doriti sa stergeti receptia?',
+                                    showCancelButton: true,
+                                    confirmButtonText: 'Sterge',
+                                    cancelButtonText: 'Renunta'
+                                }"
+                                (confirm)="delete(rece.id)"
+                            ><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>  
+        
+        <div class="mt-3" *ngIf="totalCount > 0">
+            <app-pager
+                [pageSize]="receptieParams.pageSize"
+                [totalCount]="totalCount"
+                (pageChanged)="onPageChanged($event)"
+            ></app-pager>
+        </div>
+    </section>
+   
+</div>
+

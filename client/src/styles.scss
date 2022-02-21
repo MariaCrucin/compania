@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
+@import '../node_modules/ngx-toastr/toastr.css';
+@import '../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
+
+.nav-mycolor {
+    background-color: #e3f2fd;
+}
+
+.my-relative-pos {
+    position: relative;
+}
+
+.xng-breadcrumb-root {
+    padding: 8px 16px;
+    display: inline;
+    border-radius: 0;
+}
+
+label.xng-breadcrumb-trail {
+    margin-bottom: 0;
+    color: #e066ff;
+}
+
+.xng-breadcrumb-separator {
+    padding: 0 0;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.backgroundGri{
+    // background-color: 	#f2f2f2;
+    background-color: #ebf0fa;
+    padding: 5px;
+}

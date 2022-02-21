@@ -1,0 +1,10 @@
+<h2 class="text-center mb-4">Importa Comenzi Cadru {{year}}</h2>
+
+<form [formGroup]="form">
+    <div class="d-flex justify-content-center">
+        <button (click)="fileInput.click()" class="btn btn-outline-primary me-5">Alege Fisierul</button>
+        <input type="file" hidden #fileInput accept=".json" (change)="change($event)"> 
+        <button routerLink="/magazine" class="btn btn-outline-danger"> Renunta </button>
+    </div>  
+</form>
+

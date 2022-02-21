@@ -1,0 +1,24 @@
+
+<form [formGroup]="magazinForm" (ngSubmit)="saveMagazin()">
+    <app-number-input [formControl]='magazinForm.controls["numar"]' [label]='"Numarul"' [width]="'25%'"></app-number-input>
+
+    <app-text-input-uppercase [formControl]='magazinForm.controls["den"]' [label]='"Denumirea"'></app-text-input-uppercase>
+
+    <app-text-input [formControl]='magazinForm.controls["comandaCadru"]' [label]='"Comanda cadru"' [width]="'25%'"></app-text-input>
+
+    <ul class="text-danger list-unstyled" *ngIf="errors">
+        <li>Erori rezultate in urma validarilor din back-end:</li>
+        <li *ngFor="let error of errors">
+            {{error}}
+        </li>
+    </ul>
+
+    <div class="d-flex justify-content-center">
+        <button [disabled]="magazinForm.invalid" class="btn btn-outline-success me-3" type="submit">Salveaza</button>
+        <button routerLink="/magazine" class="btn btn-outline-danger"> Renunta </button>
+    </div>  
+</form>
+
+<p class="mt-3">Form value: {{magazinForm.value | json}}</p>
+<p>Form status: {{magazinForm.status | json}}</p>
+

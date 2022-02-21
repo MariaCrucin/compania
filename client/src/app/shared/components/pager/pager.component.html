@@ -1,0 +1,27 @@
+<div class="d-flex justify-content-center">
+    <div>
+        <pagination 
+        [boundaryLinks]="true"
+        [totalItems]="totalCount"
+        (pageChanged)="onPagerChange($event)"
+        [itemsPerPage]="pageSize" 
+        previousText="&lsaquo;" 
+        nextText="&rsaquo;" 
+        firstText="&laquo;"
+        lastText="&raquo;"
+        [maxSize]="10"
+        [rotate]="false"
+        [(ngModel)]="currentPage"
+    ></pagination>
+    </div>
+   
+    <div class="ms-4" *ngIf="currentPage == 1 && totalCount>10">
+        <span class="me-2">Page Size</span> 
+        <select (change)="onPagerSizeChange($event.target.value)">
+            <option [selected]="pageSize==10">10</option>
+            <option [selected]="pageSize==25">25</option>
+            <option [selected]="pageSize==50">50</option>
+        </select> 
+    </div>
+</div>
+

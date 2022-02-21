@@ -1,0 +1,19 @@
+<div class="form-floating mb-3">
+    <input  
+        type="text"
+        [class.is-invalid]='ngControl.touched && ngControl.invalid'
+        class='form-control'
+        [formControl]='ngControl.control'
+        id={{label}}  
+        bsDatepicker
+        [bsConfig]='bsConfig'
+    >
+
+    <label for={{label}}>
+        {{label}}
+    </label>
+
+    <div *ngIf="ngControl.control.errors?.required" class="invalid-feedback">Introduceti {{label}}</div>
+</div>
+
+<!--placeholder="{{label}}"-->

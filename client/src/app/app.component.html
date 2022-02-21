@@ -1,0 +1,24 @@
+<!-- <div>Compania</div>
+<a class="p-2" routerLink="/test-errors">Errors</a>
+
+<router-outlet></router-outlet> -->
+
+<app-top-navbar></app-top-navbar>
+
+<div id="wrapper" appSidebar>
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper" *ngIf="firma$ | async">
+      <div class="sidebar-nav">
+       <app-side-navbar></app-side-navbar>
+      </div>
+    </div> 
+    <!-- /#sidebar-wrapper -->
+  
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+    <!-- /#page-content-wrapper -->
+  
+  </div>
+  

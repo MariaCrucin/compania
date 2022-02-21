@@ -1,0 +1,10 @@
+a {
+    &.active {
+        color: #e066ff;
+        border: none;
+    }
+
+    &:hover {
+        color:  #304FFE;
+    }
+}

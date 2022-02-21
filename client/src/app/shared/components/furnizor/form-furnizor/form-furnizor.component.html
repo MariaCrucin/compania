@@ -1,0 +1,30 @@
+<form [formGroup]="furnizorForm" (ngSubmit)="saveFurnizor()">
+    <div class="row">
+        <div class="col-2">
+            <app-text-input-uppercase [formControl]='furnizorForm.controls["atCif"]' [label]='"Atribut"' [maxLength]="2"></app-text-input-uppercase>
+        </div>
+        <div class="col-10">
+            <app-text-input [formControl]='furnizorForm.controls["nrCif"]' [label]='"CUI"' [width]="'50%'"></app-text-input>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <app-text-input-uppercase [formControl]='furnizorForm.controls["prefixDen"]' [label]='"Prefix"' [maxLength]="3"></app-text-input-uppercase>
+        </div>
+        <div class="col-10">
+            <app-text-input-uppercase [formControl]='furnizorForm.controls["den"]' [label]='"Denumire"'></app-text-input-uppercase>
+        </div>
+    </div>
+
+    <ul class="text-danger list-unstyled" *ngIf="errors">
+        <li>Erori rezultate in urma validarilor din back-end:</li>
+        <li *ngFor="let error of errors">
+            {{errors}}
+        </li>
+    </ul>
+
+    <div class="d-flex justify-content-center">
+        <button [disabled]="furnizorForm.invalid" class="btn btn-outline-success me-3" type="submit">Salveaza</button>
+        <button (click)="cancelFurnizor()" class="btn btn-outline-danger"> Renunta </button>
+    </div>  
+</form>

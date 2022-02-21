@@ -1,0 +1,108 @@
+<div class="container-fluid">
+    <h3>Tarife</h3>
+    <div class="row gx-5">
+        <div class="col-6">
+            <app-choose-client [firmaId]="firmaId" (onSelectClient)="selectClient($event)"></app-choose-client>
+            <section class="mt-5 table-wrapper" *ngIf="tarife">
+                <table class="table table-sm table-hover table-striped caption-top ">
+                    <caption>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>Tarife</strong>
+                            </div>
+                            <button routerLink="/tarife/new/{{clientId}}" class="btn btn-outline-primary">Adauga</button>
+                        </div>
+                        
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th class="text-end">#</th>
+                            <th class="text-end">Cod</th>
+                            <th class="ps-3">Serviciu</th>
+                            <th class="text-end">Pret</th>
+                            <th class="ps-5">Um</th>
+                            <th class="text-end">Coef Km</th>
+                            <th class="text-end">Proc Disc</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let tarif of tarife; let i=index">
+                            <td class="text-end">{{i+1}}</td>
+                            <td class="text-end">{{tarif.cod}}</td>
+                            <td class="ps-3">{{tarif.den}}</td> 
+                            <td class="text-end">{{tarif.pret | number:'1.2-2'}}</td>
+                            <td class="ps-5">{{tarif.um}}</td>
+                            <td class="text-end">{{tarif.coefKm}}</td>
+                            <td class="text-end">{{tarif.procDisc}}</td>
+                            <td class="text-center">
+                                <button routerLink="/tarife/{{tarif.id}}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+        <div class="col-6">
+            <router-outlet></router-outlet>
+        </div>
+    </div> 
+    
+    
+<div class="row">
+    <div class="col-6">
+        <table class="fixed_header">
+            <thead>
+              <tr>
+                <th>Col 1</th>
+                <th>Col 2</th>
+                <th>Col 3</th>
+                <th>Col 1</th>
+                <th>Col 2</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Text</td>
+                <td>Text</td>
+                <td>Text</td>
+                <td>Text</td>
+                <td>Text</td>
+              </tr>
+              <tr>
+                <td>Text</td>
+                <td>Text</td>
+                <td>Text</td>
+                <td>Text</td>
+                <td>Text</td>
+              </tr>
+              <tr>
+                <td>Text</td>
+                <td>Text</td>
+                <td>Text</td>
+                <td>Text</td>
+                <td>Text</td>
+              </tr>
+              <tr>
+                <td>Text</td>
+                <td>Text</td>
+                <td>Text</td>
+                <td>Text</td>
+                <td>Text</td>
+              </tr>
+              <tr>
+                <td>Text</td>
+                <td>Text</td>
+                <td>Text</td>
+                <td>Text</td>
+                <td>Text</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
+    
+    
+</div>

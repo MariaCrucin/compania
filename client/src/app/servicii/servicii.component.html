@@ -1,0 +1,60 @@
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-2">
+            <h2>Servicii</h2>
+        </div>
+        <div class="col-2">
+          <button routerLink="/servicii/new" class="btn btn-outline-primary">Adauga</button>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-1">
+            <div class="input-group">
+                <span class="input-group-text" id="basic-addon1">Cod</span>
+                <input type="text" class="form-control" name="searchCod"  maxlength="3" [(ngModel)]="cod" (keyup.enter)="onSearch()">
+            </div>        
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-6">
+            <section *ngIf="servicii">  
+                    <table class="table table-sm table-hover table-striped caption-top">
+                        <!--style="width: 50%"-->
+                        <caption>
+                            <strong>Servicii - ({{totalCount}})</strong>
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th class="text-end" style="width: 5%">#</th>
+                                <th class="text-end" style="width: 10%">Cod</th>
+                                <th style="width: 59%">Serviciu</th>
+                                <th class="text-start" style="width: 11%">UM</th>
+                                <th style="width: 15%"> </th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let serviciu of servicii; let i = index">
+                                <td class="text-end" style="width:5%">{{i+1}}</td>
+                                <td class="text-end" style="width: 10%">{{serviciu.cod}}</td>
+                                <td style="width: 60%">{{serviciu.den}}</td>
+                                <td class="text-start" style="width: 10%">{{serviciu.um}}</td>
+                                <th class="text-center" style="width: 15%">
+                                    <button routerLink="/servicii/{{serviciu.id}}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </th>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+            </section>    
+        </div>
+        <div class="col-1"></div>
+        <div class="col-5">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

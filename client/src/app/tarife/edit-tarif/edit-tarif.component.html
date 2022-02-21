@@ -1,0 +1,4 @@
+<ng-container class="p-3 backgroundGri">
+    <h2 class="mb-4">Modifica Tarif</h2>
+    <app-form-tarif *ngIf="tarif" [tarif]="tarif" [errors]="errors" (onSaveChanges)="saveChanges($event)"></app-form-tarif>
+</ng-container> 
